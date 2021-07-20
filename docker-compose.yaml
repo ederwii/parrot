@@ -7,6 +7,13 @@ networks:
 
 services:
 
+  order-service:
+    build: order-service/.
+    ports:
+      - "8080:80" 
+    networks:
+      - isolation-network
+
   user-service:
     build: user-service/.
     ports:
@@ -20,6 +27,8 @@ services:
     restart: always
     ports: 
       - 27017:27017
+    networks:
+      - isolation-network
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
