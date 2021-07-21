@@ -10,8 +10,8 @@ using PR.Data;
 namespace PR.Data.Migrations
 {
     [DbContext(typeof(OrderDbContext))]
-    [Migration("20210721072602_Initial")]
-    partial class Initial
+    [Migration("20210721073214_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,8 +46,8 @@ namespace PR.Data.Migrations
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,27 +59,22 @@ namespace PR.Data.Migrations
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("decimal(18,4)");
 
-                    b.HasKey("OrderId", "ProductId");
+                    b.HasKey("OrderId", "ProductName");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductName");
 
                     b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("PR.Data.Models.Product", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Name");
 
                     b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Products");
                 });
@@ -94,7 +89,7 @@ namespace PR.Data.Migrations
 
                     b.HasOne("PR.Data.Models.Product", "Product")
                         .WithMany("OrderProducts")
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("ProductName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

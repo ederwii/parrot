@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PR.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,12 +25,11 @@ namespace PR.Data.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.Name);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,14 +37,14 @@ namespace PR.Data.Migrations
                 columns: table => new
                 {
                     OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderProducts", x => new { x.OrderId, x.ProductId });
+                    table.PrimaryKey("PK_OrderProducts", x => new { x.OrderId, x.ProductName });
                     table.ForeignKey(
                         name: "FK_OrderProducts_Orders_OrderId",
                         column: x => x.OrderId,
@@ -53,24 +52,23 @@ namespace PR.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderProducts_Products_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_OrderProducts_Products_ProductName",
+                        column: x => x.ProductName,
                         principalTable: "Products",
-                        principalColumn: "Id",
+                        principalColumn: "Name",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderProducts_ProductId",
+                name: "IX_OrderProducts_ProductName",
                 table: "OrderProducts",
-                column: "ProductId");
+                column: "ProductName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_Name",
                 table: "Products",
                 column: "Name",
-                unique: true,
-                filter: "[Name] IS NOT NULL");
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
