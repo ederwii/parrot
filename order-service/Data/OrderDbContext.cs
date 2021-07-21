@@ -7,13 +7,9 @@ namespace PR.Data
 {
     public class OrderDbContext : DbContext
     {
-        public string DbPath { get; private set; }
 
         public OrderDbContext()
         {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = $"{path}{System.IO.Path.DirectorySeparatorChar}parrot.db";
         }
 
         public OrderDbContext(DbContextOptions<OrderDbContext> options) : base(options)
@@ -22,7 +18,7 @@ namespace PR.Data
         // The following configures EF to create a Sqlite database file in the
         // special "local" folder for your platform.
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite($"Data Source={DbPath}");
+            => options.UseSqlServer("Server=.;Database=course;Trusted_Connection=True;");
 
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderProduct> OrderProducts { get; set; }

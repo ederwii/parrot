@@ -15,6 +15,7 @@ namespace PR.Data.Models
         public Guid Id { get; set; }
         public Guid OrderId { get; set; }
         public Guid ProductId { get; set; }
+        [Column(TypeName = "decimal(18,4)")]
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public Order Order { get; set; }

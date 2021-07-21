@@ -10,7 +10,9 @@ namespace PR.Data.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
+        public string UserId { get; set; }
         public string ClientName { get; set; }
+        [Column(TypeName = "decimal(18,4)")]
         public decimal TotalPrice { get; set; }
         public IList<OrderProduct> OrderProducts { get; set; }
     }

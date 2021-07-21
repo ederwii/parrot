@@ -16,6 +16,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using PR.Data;
+using PR.Domain.Services;
+using PR.Logic;
+using PR.Domain.Repositories;
+using PR.Data.Repositories;
 
 namespace Api
 {
@@ -36,6 +40,9 @@ namespace Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
             });
+
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.AddDbContext<OrderDbContext>();
         }
