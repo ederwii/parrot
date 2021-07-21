@@ -17,16 +17,15 @@ namespace PR.Data.Repositories
             _context = context;
         }
 
+        public bool Any(string productName) => _context.Products.Any(p => p.Name == productName);
+
         public void Create(string productName)
         {
-            if(!_context.Products.Any(p => p.Name == productName))
+            _context.Products.Add(new Models.Product()
             {
-                _context.Products.Add(new Models.Product()
-                {
-                    Name = productName
-                });
-                _context.SaveChanges();
-            }
+                Name = productName
+            });
+            _context.SaveChanges();
         }
     }
 }

@@ -13,6 +13,7 @@ namespace PR.Domain.Models
         public string UserId { get; set; }
         public string ClientName { get; set; }
         public decimal TotalPrice { get; set; }
+        public DateTime OrderDate { get; set; }
         public IList<OrderProduct> OrderProducts { get; set; }
     }
 }

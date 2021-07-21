@@ -14,6 +14,7 @@ namespace PR.Data.Models
         public string ClientName { get; set; }
         [Column(TypeName = "decimal(18,4)")]
         public decimal TotalPrice { get; set; }
+        public DateTime OrderDate { get; set; }
         public IList<OrderProduct> OrderProducts { get; set; }
     }
 }

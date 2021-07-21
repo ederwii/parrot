@@ -3,6 +3,7 @@ using PR.Domain.Models;
 using PR.Domain.Repositories;
 using PR.Domain.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PR.Logic
@@ -18,17 +19,52 @@ namespace PR.Logic
             _productRepo = productRepo;
         }
 
+        /// <summary>
+        /// Create an Order from a CreateOrderRequest
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="userId">User who's creating the order</param>
         public void Create(CreateOrderRequest request, string userId)
         {
+            CreateProducts(request);
+
+            var order = GetOrderFromRequest(request, userId);
+
+            _repo.Create(order);
+        }
+
+        /// <summary>
+        /// Iterate over order products and create products if needed
+        /// </summary>
+        /// <param name="request"></param>
+        private void CreateProducts(CreateOrderRequest request)
+        {
             var products = request.OrderProducts.Select(op => op.ProductName).Distinct();
-            foreach (var product in products) 
+            foreach (var product in products)
             {
-                _productRepo.Create(product);
+                if(!_productRepo.Any(product))
+                    _productRepo.Create(product);
 
             }
+        }
 
-            var totalPrice = request.OrderProducts.Select(op => op.Quantity * op.UnitPrice).Sum();
-            var order = new Order
+        /// <summary>
+        /// Get order total by looping through order products
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        private static decimal CalculateTotal(CreateOrderRequest request) => request.OrderProducts.Select(op => op.Quantity * op.UnitPrice).Sum();
+
+        /// <summary>
+        /// Create DTO model based upon request
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        private static Order GetOrderFromRequest(CreateOrderRequest request, string userId)
+        {
+            var totalPrice = CalculateTotal(request);
+            return new Order
             {
                 ClientName = request.ClientName,
                 OrderProducts = request.OrderProducts.Select(op => new OrderProduct()
@@ -40,7 +76,7 @@ namespace PR.Logic
                 TotalPrice = totalPrice,
                 UserId = userId
             };
-            _repo.Create(order);
         }
+
     }
 }

@@ -25,8 +25,9 @@ namespace PR.Api.Controllers
             _service.Create(request, user.Id);
             return Ok("Ok");
         }
+        
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get([FromQuery(Name = "startDate")] DateTime startDate, [FromQuery(Name = "endDate")] DateTime endDate)
         {
             return Ok("Pong");
         }

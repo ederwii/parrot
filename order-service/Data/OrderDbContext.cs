@@ -32,7 +32,7 @@ namespace PR.Data
 
             builder.Entity<Order>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
             builder.Entity<OrderProduct>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
-
+            builder.Entity<Order>().Property(x=>x.OrderDate).HasDefaultValueSql("getutcdate()");
             builder.Entity<OrderProduct>().HasKey(sc => new { sc.OrderId, sc.ProductName });
         }
     }

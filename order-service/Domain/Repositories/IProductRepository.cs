@@ -10,5 +10,7 @@ namespace PR.Domain.Repositories
     public interface IProductRepository
     {
         public void Create(string productName);
+
+        public bool Any(string productName);
     }
 }
