@@ -14,7 +14,6 @@ namespace PR.Api.Helpers
             CreateMap<PR.Data.Models.Order, PR.Domain.Models.Order>().ReverseMap();
             CreateMap<PR.Data.Models.OrderProduct, PR.Domain.Models.OrderProduct>().ReverseMap();
             CreateMap<PR.Data.Models.Product, PR.Domain.Models.Product>().ReverseMap();
-                //.ForMember(o => o.OrderProducts, opt => opt.MapFrom(s => s.OrderProducts.Select(x => new Data.Models.OrderProduct() {)));
         }
     }
 }

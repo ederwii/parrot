@@ -10,5 +10,6 @@ namespace PR.Domain.Repositories
     public interface IOrderRepository
     {
         public void Create(Order order);
+        public IEnumerable<OrderProduct> GetOrderProducts(DateTime? startDate, DateTime? endDate);
     }
 }

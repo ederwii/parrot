@@ -9,7 +9,7 @@ using PR.Domain.Models;
 namespace PR.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [Authorize]
     public class OrderController : ControllerBase
     {
@@ -24,12 +24,6 @@ namespace PR.Api.Controllers
             var user = (User)HttpContext.Items["User"];
             _service.Create(request, user.Id);
             return Ok("Ok");
-        }
-        
-        [HttpGet]
-        public IActionResult Get([FromQuery(Name = "startDate")] DateTime startDate, [FromQuery(Name = "endDate")] DateTime endDate)
-        {
-            return Ok("Pong");
         }
     }
 }

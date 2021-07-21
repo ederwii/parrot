@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PR.Data.Models;
 using PR.Domain.Repositories;
 using System;
@@ -24,6 +25,27 @@ namespace PR.Data.Repositories
         {
             _context.Orders.Add(_mapper.Map<Order>(order));
             _context.SaveChanges();
+        }
+
+        public IEnumerable<Domain.Models.OrderProduct> GetOrderProducts(DateTime? startDate, DateTime? endDate)
+        {
+            var orders = _context.Orders.Include(x => x.OrderProducts).AsQueryable();
+            if (startDate.HasValue)
+                orders = orders.Where(o => o.OrderDate.Date >= startDate.Value.Date);
+
+            if (endDate.HasValue)
+                orders = orders.Where(o => o.OrderDate.Date <= endDate.Value.Date);
+
+            var orderProducts = new List<OrderProduct>();
+
+            foreach(var order in orders)
+            {
+                orderProducts.AddRange(order.OrderProducts);
+            }
+
+            var result = orders.Select(x => x.OrderProducts);
+            
+            return _mapper.Map<IEnumerable<Domain.Models.OrderProduct>>(orderProducts);
         }
     }
 }

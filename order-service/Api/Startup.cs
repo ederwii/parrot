@@ -43,6 +43,7 @@ namespace Api
             });
 
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
 
