@@ -14,7 +14,6 @@ namespace PR.Data.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public decimal UnitPrice { get; set; }
-        public int Quantity { get; set; }
+        public IList<OrderProduct> OrderProducts { get; set; }
     }
 }

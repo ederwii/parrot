@@ -12,6 +12,6 @@ namespace PR.Data.Models
         public Guid Id { get; set; }
         public string ClientName { get; set; }
         public decimal TotalPrice { get; set; }
-        public IEnumerable<Product> Products { get; set; }
+        public IList<OrderProduct> OrderProducts { get; set; }
     }
 }

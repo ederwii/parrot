@@ -33,6 +33,8 @@ namespace PR.Data
             builder.Entity<Product>()
                 .HasIndex(u => u.Name)
                 .IsUnique();
+
+            builder.Entity<OrderProduct>().HasKey(sc => new { sc.OrderId, sc.ProductId });
         }
     }
 }
