@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PR.Domain.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,6 @@ namespace PR.Domain.Models
         public string UserId { get; set; }
         public string ClientName { get; set; }
         public decimal TotalPrice { get; set; }
+        public IList<OrderProduct> OrderProducts { get; set; }
     }
 }

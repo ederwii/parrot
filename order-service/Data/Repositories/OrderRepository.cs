@@ -1,4 +1,5 @@
-﻿using PR.Data.Models;
+﻿using AutoMapper;
+using PR.Data.Models;
 using PR.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -10,17 +11,18 @@ namespace PR.Data.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
+        private IMapper _mapper;
         private readonly OrderDbContext _context;
 
-        public OrderRepository(OrderDbContext context)
+        public OrderRepository(OrderDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public void Create(Domain.Models.Order order)
         {
-            var newOrder = new Order();
-            _context.Orders.Add(newOrder);
+            _context.Orders.Add(_mapper.Map<Order>(order));
             _context.SaveChanges();
         }
     }

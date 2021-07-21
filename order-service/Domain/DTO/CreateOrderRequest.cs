@@ -9,6 +9,6 @@ namespace PR.Domain.DTO
     public class CreateOrderRequest
     {
         public string ClientName { get; set; }
-        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<Product> OrderProducts { get; set; }
     }
 }

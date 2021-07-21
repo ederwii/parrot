@@ -30,6 +30,9 @@ namespace PR.Data
                 .HasIndex(u => u.Name)
                 .IsUnique();
 
+            builder.Entity<Order>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
+            builder.Entity<OrderProduct>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
+
             builder.Entity<OrderProduct>().HasKey(sc => new { sc.OrderId, sc.ProductName });
         }
     }

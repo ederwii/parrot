@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PR.Domain.DTO
+namespace PR.Domain.Models
 {
     public class Product
     {
-        public string ProductName { get; set; }
-        public decimal UnitPrice { get; set; }
-        public int Quantity { get; set; }
+        public string Name { get; set; }
+        public IList<OrderProduct> OrderProducts { get; set; }
     }
 }
