@@ -4,6 +4,7 @@ using PR.Api.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using PR.Domain.DTO;
 using PR.Domain.Services;
+using PR.Domain.Models;
 
 namespace PR.Api.Controllers
 {
@@ -20,7 +21,8 @@ namespace PR.Api.Controllers
         [HttpPost]
         public IActionResult Post(CreateOrderRequest request)
         {
-            _service.Create(request);
+            var user = (User)HttpContext.Items["User"];
+            _service.Create(request, user.Id);
             return Ok("Ok");
         }
         [HttpGet]

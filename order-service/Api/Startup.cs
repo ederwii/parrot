@@ -44,6 +44,7 @@ namespace Api
 
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddDbContext<OrderDbContext>();
         }

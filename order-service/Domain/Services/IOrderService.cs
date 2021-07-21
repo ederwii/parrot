@@ -9,6 +9,6 @@ namespace PR.Domain.Services
 {
     public interface IOrderService
     {
-        public void Create(CreateOrderRequest request);
+        public void Create(CreateOrderRequest request, string userId);
     }
 }

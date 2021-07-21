@@ -10,14 +10,24 @@ namespace PR.Logic
     public class OrderService : IOrderService
     {
         private readonly IOrderRepository _repo;
+        private readonly IProductRepository _productRepo;
 
-        public OrderService(IOrderRepository repo)
+        public OrderService(IOrderRepository repo, IProductRepository productRepo)
         {
             _repo = repo;
+            _productRepo = productRepo;
         }
 
-        public void Create(CreateOrderRequest request)
+        public void Create(CreateOrderRequest request, string userId)
         {
+            var products = request.OrderProducts.Select(op => op.ProductName).Distinct();
+            foreach (var product in products) 
+            {
+                _productRepo.Create(product);
+
+            }
+
+            var totalPrice = request.OrderProducts.Select(op => op.Quantity * op.UnitPrice).Sum();
             var order = new Order
             {
                 ClientName = request.ClientName,
@@ -26,7 +36,9 @@ namespace PR.Logic
                     ProductName = op.ProductName,
                     Quantity = op.Quantity,
                     UnitPrice = op.UnitPrice
-                }).ToList()
+                }).ToList(),
+                TotalPrice = totalPrice,
+                UserId = userId
             };
             _repo.Create(order);
         }
