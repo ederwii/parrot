@@ -31,7 +31,7 @@ namespace PR.Logic
 
             }).ToList();
 
-            return result;
+            return result.OrderByDescending(x=>x.TotalAmount);
         }
     }
 }
