@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Api.Helpers;
+using PR.Api.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers
+namespace PR.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

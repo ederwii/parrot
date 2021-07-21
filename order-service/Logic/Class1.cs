@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Logic
+namespace PR.Logic
 {
-    public class Class1
+    public class OrderService
     {
     }
 }

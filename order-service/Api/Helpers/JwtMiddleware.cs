@@ -1,15 +1,11 @@
-using Domain;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.IdentityModel;
+using PR.Domain.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Api.Helpers
+namespace PR.Api.Helpers
 {
     public class JwtMiddleware
     {
