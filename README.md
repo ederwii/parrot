@@ -1,5 +1,11 @@
 # Parrot Challenge
 
+## Arquitectura
+
+Microservicios utilizando Docker
+
+![alt text](diagram.png)
+
 ## Requisitos
 
 * Docker 
