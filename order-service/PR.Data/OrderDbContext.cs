@@ -18,7 +18,7 @@ namespace PR.Data
         // The following configures EF to create a Sqlite database file in the
         // special "local" folder for your platform.
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer("Server=sql-server-db;Database=backendDb;User=sa;Password=ParrotDev123;MultipleActiveResultSets=true");
+            => options.UseSqlServer("Server=sql-server-db;Database=prrdev;User=sa;Password=ParrotDev123;MultipleActiveResultSets=true");
 
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderProduct> OrderProducts { get; set; }

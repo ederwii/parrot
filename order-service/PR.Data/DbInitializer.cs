@@ -11,7 +11,6 @@ namespace PR.Data
     {
         public static void Initialize(OrderDbContext context)
         {
-            context.Database.EnsureCreated();
             context.Database.Migrate();
         }
     }

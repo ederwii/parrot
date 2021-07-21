@@ -18,15 +18,11 @@ services:
     restart: always
     ports: 
       - 27017:27017
-    volumes:
-      - type: volume
-        source: mongodb_data_volume
-        target: /data/db
 
   order-service:
     build: order-service/.
     ports:
-      - "8080:80" 
+      - "4000:80" 
     environment:
       - "ConnectionStrings__DefaultConnection=Server=sql-server-db;Database=backendDb;User=sa;Password=ParrotDev123;MultipleActiveResultSets=true"
     restart: on-failure
@@ -47,6 +43,4 @@ services:
 volumes:
   data01:
     driver: local
-  mongodb_data_volume:
-    external: true
   
