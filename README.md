@@ -4,7 +4,7 @@
 
 Microservicios utilizando Docker
 
-![alt text](diagram.png)
+![alt text](arch-diagram.png)
 
 ## Requisitos
 
