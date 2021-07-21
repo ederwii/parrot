@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "9f268d8b-7a07-4e26-9a4f-03c1e6f8799d",
+		"name": "parrot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{email}}\",\n    \"name\": \"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{userServiceHost}}",
+							"host": [
+								"{{userServiceHost}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{email}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{userServiceHost}}token",
+							"host": [
+								"{{userServiceHost}}token"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ClientName\" :\"Alan\",\n    \"OrderProducts\": [{\n        \"ProductName\": \"Product 5\",\n        \"UnitPrice\": 120,\n        \"Quantity\": 10\n    }, {\n        \"ProductName\": \"Product 8\",\n        \"UnitPrice\": 140,\n        \"Quantity\": 10\n    }]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{orderServiceHost}}order",
+							"host": [
+								"{{orderServiceHost}}order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Report",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ClientName\" :\"Alan\",\n    \"OrderProducts\": [{\n        \"ProductName\": \"Product 1\",\n        \"UnitPrice\": 120,\n        \"Quantity\": 10\n    }]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{orderServiceHost}}report?startDate=2021-01-01&endDate=2021-12-31",
+							"host": [
+								"{{orderServiceHost}}report"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2021-01-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2021-12-31"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.collectionVariables.set(\"userServiceHost\", \"http://localhost:3000/user/\");",
+					"pm.collectionVariables.set(\"orderServiceHost\", \"http://localhost:4000/api/\");",
+					"pm.collectionVariables.set(\"email\", \"alan@codiks.com\");",
+					"pm.collectionVariables.set(\"name\", \"Alan Martinez\");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userServiceHost",
+			"value": ""
+		},
+		{
+			"key": "orderServiceHost",
+			"value": ""
+		},
+		{
+			"key": "url",
+			"value": ""
+		},
+		{
+			"key": "email",
+			"value": ""
+		},
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
