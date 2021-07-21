@@ -23,7 +23,7 @@ services:
     build: user-service/.
     environment:
       DB_URI: mongodb://mongo:27017/parrot-users
-      TOKEN_SECRET: TOKEN_SECRET
+      TOKEN_SECRET: 8at!7TtrV+J9@2ZHjrtqtyg9Tm_wN3^P3A?s9QWQ6y#ASpN!+Z8F!2U+s_nXs2
       EXPIRES_IN: 3600
     ports:
       - "3000:3000"

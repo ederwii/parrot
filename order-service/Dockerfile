@@ -4,19 +4,22 @@ WORKDIR /source
 
 # copy csproj and restore as distinct layers
 COPY *.sln .
-COPY Api/*.csproj ./Api/
-COPY Data/*.csproj ./Data/
-COPY Doman/*.csproj ./Doman/
-COPY Logic/*.csproj ./Logic/
+COPY PR.Api/*.csproj ./PR.Api/
+COPY PR.Data/*.csproj ./PR.Data/
+COPY PR.Domain/*.csproj ./PR.Domain/
+COPY PR.Logic/*.csproj ./PR.Logic/
 RUN dotnet restore
 
 # copy everything else and build app
-COPY Api/. ./Api/
-WORKDIR /source/Api
-RUN dotnet publish -c debug -o /app 
+COPY PR.Api/. ./PR.Api/
+COPY PR.Data/. ./PR.Data/
+COPY PR.Domain/. ./PR.Domain/
+COPY PR.Logic/. ./PR.Logic/
+WORKDIR /source/PR.Api
+RUN dotnet publish -c release -o /app 
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app
 COPY --from=build /app ./
-ENTRYPOINT ["dotnet", "Api.dll"]
+ENTRYPOINT ["dotnet", "PR.Api.dll"]
