@@ -26,6 +26,8 @@ namespace PR.Logic
         /// <param name="userId">User who's creating the order</param>
         public void Create(CreateOrderRequest request, string userId)
         {
+            if (!request.OrderProducts.Any())
+                throw new ArgumentException("Can't create an order with no products");
             CreateProducts(request);
 
             var order = GetOrderFromRequest(request, userId);

@@ -21,9 +21,16 @@ namespace PR.Api.Controllers
         [HttpPost]
         public IActionResult Post(CreateOrderRequest request)
         {
-            var user = (User)HttpContext.Items["User"];
-            _service.Create(request, user.Id);
-            return Ok("Ok");
+            try
+            {
+                var user = (User)HttpContext.Items["User"];
+                _service.Create(request, user.Id);
+                return Ok();
+            }
+            catch(ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
