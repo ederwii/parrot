@@ -1,25 +1,7 @@
 # Use root/example as user/password credentials
 version: '3.1'
 
-networks:
-  isolation-network:
-    driver: bridge
-
 services:
-
-  order-service:
-    build: order-service/.
-    ports:
-      - "8080:80" 
-    networks:
-      - isolation-network
-
-  user-service:
-    build: user-service/.
-    ports:
-      - "3000:3000" 
-    networks:
-      - isolation-network
 
   mongo:
     container_name: mongo
@@ -27,16 +9,26 @@ services:
     restart: always
     ports: 
       - 27017:27017
-    networks:
-      - isolation-network
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
       - type: volume
         source: mongodb_data_volume
         target: /data/db
 
+  order-service:
+    build: order-service/.
+    ports:
+      - "8080:80" 
+
+  user-service:
+    build: user-service/.
+    environment:
+      DB_URI: mongodb://mongo:27017/parrot-users
+      TOKEN_SECRET: TOKEN_SECRET
+      EXPIRES_IN: 3600
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
 volumes:
   mongodb_data_volume:
     external: true

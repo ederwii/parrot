@@ -1,28 +1,36 @@
-/* const express = require('express')
-const app = express()
-const port = 3000
+import express from 'express';
+import * as http from 'http';
+import UserController from './api/user-controller';
+import cors from 'cors';
+import MongooseHelper from './helpers/mongoose-helper';
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+if (process.env.DEBUG) {
+  require('dotenv').config()
+}
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-}) */
+const app: express.Application = express();
+const server: http.Server = http.createServer(app);
+const port = process.env.PORT || 3000;
 
-'use strict';
+const mongooseHelper = new MongooseHelper();
 
-const express = require('express');
+// here we are adding middleware to parse all incoming requests as JSON 
+app.use(express.json());
 
-// Constants
-const PORT = 3000;
-const HOST = '0.0.0.0';
+// here we are adding middleware to allow cross-origin requests
+app.use(cors());
 
-// App
-const app = express();
-app.get('/', (req: any, res: any) => {
-  res.send('Hello World');
+new UserController(app)
+
+// this is a simple route to make sure everything is working properly
+const runningMessage = `Server running at port ${port}`;
+app.get('/', (req: express.Request, res: express.Response) => {
+  res.status(200).send(runningMessage)
 });
-
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+mongooseHelper.connect().then(() => {
+  server.listen(port, () => {
+    // our only exception to avoiding console.log(), because we
+    // always want to know when the server is done starting up
+    console.log(runningMessage);
+  });
+})
