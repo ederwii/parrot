@@ -1,38 +1,35 @@
 # Parrot Challenge
 
-## Arquitectura
+## Architecture
 
-Microservicios utilizando Docker
+DOckerized microservice environment
 
 ![alt text](arch-diagram.png)
 
-## Requisitos
+## Rquirements
 
 * Docker 
 * Postman 
 
 ## Setup 
 
-1. Clonar este repo
-2. En una terminal, navegar al folder del repo
-3. Ejecutar `docker-compose build`
-4. Ejecutar `docker-compose up`
+1. Clone this repo
+2. Open a console in the folder
+3. Execute `docker-compose build`
+4. Execute `docker-compose up`
 
-## Test con Postman
+## Test with Postman
 
-Este repositorio incluye un archivo [postman.json](postman.json) con la colección de Postman para probar los endpoints 
-
-1. Importar el archivo [Postman](postman.json) como colección en postman
+This repo includes an archive [postman.json][postman.json] with the postman collection to test the endpoints.
 
 ### Users => Create
-Crea un usuario con email y nombre
-
+Create an user with email and name
 
 ### Users => Login
-Obtiene un jwt para un email
+Get a jwt for an email
 
 ### Orders => Create
-Crea una órden con productos, la estructura del request
+Create an order with products, this is the structore of the request
 
 ```json
 {
@@ -50,13 +47,13 @@ Crea una órden con productos, la estructura del request
 ```
 
 ### Orders => Report
-Obtiene un reporte de ventas por producto. El filtrado es por fecha y se envían por query params
+Get a report of sales per product. The filtering is by date in query params
 
 `?startDate=2021-01-01&endDate=2021-12-31`
 
-## Tecnologías
-* NodeJs + Mongo para user management
-* Net 5 + SQL Server para order management
+## Technologies
+* NodeJs + Mongo for user management
+* Net 5 + SQL Server for oder management
 
 ## Docker containers
 * NodeJs app
